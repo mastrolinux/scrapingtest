@@ -14,9 +14,18 @@ jobs = parse()  # load jobs into memory
 
 @app.route('/jobs', methods=['GET'])
 def get_tasks():
+    """
+    Returns a json with every job listed
+    http://localohost:5000/jobs
+    """
     return Response(json.dumps(dict(jobs=jobs)),  mimetype="application/json")
 
 @app.route('/jobs/<string:job_name>', methods=['GET'])
+    """
+    Returns a json looking for jobs matching a given set of words in the title
+    http://localohost:5000/jobs/IT%20Manager
+    (the search is case insensitive)
+    """
 def get_specific_job(job_name):
     ret = []
     for job in jobs:
@@ -26,6 +35,11 @@ def get_specific_job(job_name):
 
 @app.route('/update', methods = ['GET'])
 def update_json():
+    """
+    Fetch the content of the webiste and stores it in ram as a new copy
+    """
+    # In general is bad to have global vars, but in this case allow us to
+    # avoid saving on file system for a superfast search (everything in ram)
     global jobs
     jobs = parse()
     return "Status updated"

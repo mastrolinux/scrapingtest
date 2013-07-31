@@ -17,3 +17,4 @@ $ supervisord
 
 Usage
 -----
+http://localhost:5000/jobs
