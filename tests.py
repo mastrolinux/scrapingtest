@@ -5,20 +5,23 @@ import json
 import gaikaiparser
 import webapp
 
+
+
 class TestGaikaiParser(unittest.TestCase):
     def setUp(self):
-        self.jobs = gaikaiparser.parse()
+        global jobs
+        jobs = gaikaiparser.parse()
 
     def test_consistency(self):
-        self.assertGreaterEqual(len(self.jobs), 1)
+        self.assertGreaterEqual(len(jobs), 1)
         for job in jobs:
             for key, value in job.items():
                 self.assert_(value)
 
     def test_serialization(self):
-        a = json.dumps(self.jobs)
+        a = json.dumps(jobs)
         b = json.loads(a)
-        self.assertEqual(b, self.jobs)
+        self.assertEqual(b, jobs)
 
 
 def patched_wget(url):

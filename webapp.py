@@ -21,12 +21,12 @@ def get_tasks():
     return Response(json.dumps(dict(jobs=jobs)),  mimetype="application/json")
 
 @app.route('/jobs/<string:job_name>', methods=['GET'])
+def get_specific_job(job_name):
     """
     Returns a json looking for jobs matching a given set of words in the title
     http://localohost:5000/jobs/IT%20Manager
     (the search is case insensitive)
     """
-def get_specific_job(job_name):
     ret = []
     for job in jobs:
         if re.search(job_name, job['title'], re.IGNORECASE):
